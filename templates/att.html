@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Attendance Calendar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .month-year {
+      font-size: 1.6em;
+      font-weight: bold;
+    }
+    .nav-btn {
+      cursor: pointer;
+      padding: 5px 10px;
+      border: none;
+      background: #101822;
+      color: white;
+      border-radius: 5px;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+    .weekday {
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      background-color: #0b0d0f;
+      color: #fff;
+    }
+    .day {
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0 0 5px rgba(226, 69, 69, 0.1);
+    }
+    .weekday-present {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .weekend-present {
+      background-color: #e0c981;
+      color: #856404;
+    }
+    .leave-day {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <button class="nav-btn" onclick="prevMonth()">Prev</button>
+    <div class="month-year" id="monthYear"></div>
+    <button class="nav-btn" onclick="nextMonth()">Next</button>
+  </div>
+
+  <div class="calendar" id="calendar"></div>
+
+  <!-- ✅ Safe JSON parsing of leave date -->
+  <script>
+    // Example format: leave_days = [{"year": 2025, "month": 11, "day": 2}]
+    const leaveDates = JSON.parse('{{ leave_days | tojson | safe | default("[]") }}');
+  </script>
+
+  <script>
+    const calendar = document.getElementById('calendar');
+    const monthYear = document.getElementById('monthYear');
+    let currentDate = new Date();
+
+    function renderCalendar(date) {
+      calendar.innerHTML = '';
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      monthYear.innerText = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+      const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      weekdays.forEach(day => {
+        const dayHeader = document.createElement('div');
+        dayHeader.classList.add('weekday');
+        dayHeader.textContent = day;
+        calendar.appendChild(dayHeader);
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        calendar.appendChild(document.createElement('div'));
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        const weekdayIndex = new Date(year, month, day).getDay();
+
+        // Default coloring
+        if (weekdayIndex === 0 || weekdayIndex === 6)
+          dayDiv.classList.add('day', 'weekend-present');
+        else
+          dayDiv.classList.add('day', 'weekday-present');
+
+        // ✅ Check if this exact date (year, month, day) is a leave
+        const isLeave = leaveDates.some(l =>
+          l.year === year && l.month === (month + 1) && l.day === day
+        );
+
+        if (isLeave) {
+          dayDiv.classList.remove('weekday-present', 'weekend-present');
+          dayDiv.classList.add('leave-day');
+          dayDiv.innerHTML = `<strong>${day}</strong><br>L`;
+        } else {
+          dayDiv.innerHTML = `<strong>${day}</strong><br>P`;
+        }
+
+        calendar.appendChild(dayDiv);
+      }
+    }
+
+    function prevMonth() {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      renderCalendar(currentDate);
+    }
+
+    function nextMonth() {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar(currentDate);
+    }
+
+    renderCalendar(currentDate);
+  </script>
+
+</body>
+</html>

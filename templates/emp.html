@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="/static/style1.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="logo">My Portal</div>
+            <nav class="nav-menu">
+                <a href="employee_dashboard.html" class="nav-item active">🏠 Dashboard</a>
+                <a href="{{url_for('leaverequest')}}" class="nav-item">📝 Apply Leave</a>
+                <a href="{{ url_for('employee_calendar', empid=session['empid']) }}" class="nav-item">🗓 My Schedule</a>
+
+                <a href="#" class="nav-item">📈 My Performance</a>
+                <a href="{{url_for('mydetails')}}" class="nav-item">👤 My Details</a>
+                
+                <div class="nav-separator"></div>
+                <a href="{{url_for('contact')}}" class="nav-item">📞 Contact</a>
+                <a href="{{url_for('about')}}" class="nav-item">ℹ About</a>
+                <a href="{{ url_for('back') }}" class="nav-item">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>Employee Self-Service Portal</h2>
+                <div class="user-info">Welcome, {{name}}</div>
+            </header>
+            
+            <section class="content-section">
+                <h3>My Leave Status</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card bg-blue">
+                        <h4>Annual Leave Left (Days)</h4>
+                        <p>15</p>
+                    </div>
+                    <div class="metric-card bg-green">
+                        <h4>Sick Leave Left (Days)</h4>
+                        <p>10</p>
+                    </div>
+                    <div class="metric-card bg-red">
+                        <h4>Pending Requests</h4>
+                        <p>1</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3>Supervisor Details (For Leave Approval)</h3>
+                <p>Your requests are reviewed by your dedicated supervisor:</p>
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Extension</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>name</td>
+                                <td>email</td>
+                                <td>id</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
+

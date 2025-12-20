@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Team — Shift Schedule</title>
+  <style>
+    :root {
+      --bg:#f4f8fb;
+      --card:#ffffff;
+      --muted:#607d8b;
+      --accent:#00bfa5;          /* Teal accent */
+      --accent-hover:#1de9b6;
+      --shadow:rgba(0,0,0,0.08);
+      font-family: "Poppins", "Inter", sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: linear-gradient(180deg,#e1f5fe 0%, #f4f8fb 100%);
+      color: #263238;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 48px auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #0097a7, #00bfa5, #64ffda);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.lead {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: all .2s ease;
+      margin-bottom: 24px;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #cfd8dc;
+      background: #ffffff;
+      color: #263238;
+      min-width: 220px;
+      transition: all .2s;
+    }
+
+    .search:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 6px rgba(0,191,165,0.3);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tbody tr {
+      background: #ffffff;
+      transition: all .15s ease;
+    }
+
+    tbody tr:hover {
+      background: #e0f2f1;
+      transform: translateY(-2px);
+    }
+
+    .emp-id { font-weight: 600; color: #004d40; }
+    .role { font-size: 13px; color: var(--muted); }
+    .email { font-size: 13px; color: #0277bd; }
+
+    .btn {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all .2s;
+      text-decoration: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #b0bec5;
+      color: #004d40;
+    }
+
+    .btn-outline:hover {
+      background: #e0f2f1;
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(90deg, var(--accent-hover), #64ffda);
+      transform: translateY(-2px);
+      box-shadow: 0 0 10px rgba(0,191,165,0.4);
+    }
+
+    .btn-back {
+      background: transparent;
+      border: 1px solid #b2dfdb;
+      color: #00796b;
+    }
+
+    .btn-back:hover {
+      background: #b2dfdb;
+      transform: translateY(-2px);
+    }
+
+    .empty {
+      padding: 36px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .shift {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .shift span {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    @media (max-width: 800px){
+      th:nth-child(3), td:nth-child(3){display:none}
+      .controls{flex-direction:column;align-items:flex-start}
+      .search{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h1>My Team</h1>
+        <p class="lead">Your current shift schedule and team overview.</p>
+      </div>
+      <div class="controls">
+        <input id="search" class="search" placeholder="Search by name, emp id or email..." />
+        <a href="{{ url_for('supervisor') }}" class="btn btn-back">← Back</a>
+      </div>
+    </div>
+
+    <div class="card" id="shiftCard">
+      <h3>Current Shift Schedule</h3>
+      <p class="shift">Team Shift: <span id="currentShift"></span></p>
+      <p class="shift">This week (Mon–Sun): <span id="weekRange"></span></p>
+    </div>
+
+    <div class="card">
+      <table id="teamTable" aria-label="Team members table">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if team_members and team_members|length > 0 %}
+            {% for emp in team_members %}
+              <tr>
+                <td class="emp-id">{{ emp.empcode }}</td>
+                <td>
+                  <div style="display:flex;flex-direction:column">
+                    <strong>{{ emp.name }}</strong>
+                    <span class="role">{{ emp.role }}</span>
+                  </div>
+                </td>
+                <td class="role">{{ emp.role }}</td>
+                <td class="email">{{ emp.email if emp.email else '—' }}</td>
+                <td class="actions">
+                  <a class="btn btn-outline" href="mailto:{{ emp.email }}">Email</a>
+                  <form method="get" action="{{ url_for('mydetails') }}" style="display:inline">
+                    <input type="hidden" name="empid" value="{{ emp.empcode }}">
+                    <button type="submit" class="btn btn-primary">View</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr><td colspan="5" class="empty">No team members found.</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // --- Search Function ---
+    const search = document.getElementById('search');
+    const tbody = document.querySelector('#teamTable tbody');
+    const rows = tbody.querySelectorAll('tr');
+
+    search.addEventListener('input', () => {
+      const query = search.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        const match = text.includes(query);
+        row.style.display = match ? '' : 'none';
+        if (match && !row.classList.contains('empty')) visibleCount++;
+      });
+
+      const emptyRow = document.querySelector('#noResults');
+      if (visibleCount === 0 && !emptyRow) {
+        const tr = document.createElement('tr');
+        tr.id = 'noResults';
+        tr.innerHTML = `<td colspan="5" class="empty">No matching results found.</td>`;
+        tbody.appendChild(tr);
+      } else if (visibleCount > 0 && emptyRow) {
+        emptyRow.remove();
+      }
+    });
+
+    // --- Shift Schedule Logic ---
+    const shifts = [
+      { name: "Morning Shift", time: "7:00 AM – 3:00 PM" },
+      { name: "Evening Shift", time: "3:30 PM – 12:30 AM" },
+      { name: "Night Shift", time: "1:00 AM – 7:00 AM" }
+    ];
+
+    function getCurrentShift() {
+      const startDate = new Date("2025-11-03"); // starting Monday
+      const now = new Date();
+      const diffDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+      const shiftIndex = Math.floor(diffDays / 7) % shifts.length;
+      return shifts[shiftIndex];
+    }
+
+    function getWeekRange() {
+      const now = new Date();
+      const startOfWeek = new Date(now);
+      startOfWeek.setDate(now.getDate() - now.getDay() + 1);
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 6);
+      return `${startOfWeek.toDateString()} → ${endOfWeek.toDateString()}`;
+    }
+
+    const shift = getCurrentShift();
+    document.getElementById("currentShift").innerText = `${shift.name} (${shift.time})`;
+    document.getElementById("weekRange").innerText = getWeekRange();
+  </script>
+</body>
+</html>

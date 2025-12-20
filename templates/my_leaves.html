@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Leave Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #5563DE;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #5563DE;
+            color: white;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .status-approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-rejected {
+            color: red;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: orange;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>HR Portal</div>
+        <div>
+            <a href="{{ url_for('emp') }}">Dashboard</a>
+            <a href="{{ url_for('leaverequest') }}">Apply Leave</a>
+            <a href="{{ url_for('my_leaves') }}">My Leaves</a>
+            <a href="{{ url_for('back') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>My Leave Requests</h2>
+        <table>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Reason</th>
+                <th>Status</th>
+            </tr>
+            {% for leave in leaves %}
+            <tr>
+                <td>{{ leave[0] }}</td>
+                <td>{{ leave[1] }}</td>
+                <td>{{ leave[2] }}</td>
+                <td>
+                    {% if leave[3] == 'Approved' %}
+                        <span class="status-approved">{{ leave[3] }}</span>
+                    {% elif leave[3] == 'Rejected' %}
+                        <span class="status-rejected">{{ leave[3] }}</span>
+                    {% else %}
+                        <span class="status-pending">{{ leave[3] }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
+
+Leaverequest,html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave Request</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #6a8efc, #7ad7f0);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .leave-container {
+        background: #ffffff;
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 350px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
+
+      label {
+        display: block;
+        font-weight: 500;
+        margin-top: 15px;
+        color: #333;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #6a8efc;
+        box-shadow: 0 0 5px rgba(106, 142, 252, 0.5);
+      }
+
+      select {
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #6a8efc;
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #5579e7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="leave-container">
+      <h2>Leave Request</h2>
+      <form method="POST" action="{{ url_for('leaverequest') }}">
+        <!-- ⚠️ Removed the inner form -->
+        <label for="empids">Emp Code</label>
+        <input type="text" id="empids" name="empids" required />
+
+        <label for="from">Leave From</label>
+        <input type="date" id="from" name="from" required />
+
+        <label for="to">Leave To</label>
+        <input type="date" id="to" name="to" required />
+
+        <label for="reason">Reason To Take Leave</label>
+        <select id="reason" name="reason" required>
+          <option value="">Select Reason</option>
+          <option value="Family Issue">Family Issue</option>
+          <option value="Sick Leave">Sick Leave</option>
+          <option value="Overtime Leave">Overtime Leave</option>
+        </select>
+
+        <button type="submit">Send Leave Request</button>
+      </form>
+    </div>
+  </body>
+  </html>

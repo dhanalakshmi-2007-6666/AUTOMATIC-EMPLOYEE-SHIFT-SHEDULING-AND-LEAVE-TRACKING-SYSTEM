@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="/static/style.css" /><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Shift Scheduler</title>
+  <style>
+    .success {
+            color: green;
+            font-weight: bold;
+        }
+        .danger {
+            color: red;
+            font-weight: bold;
+        }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <img src="/static/images/tvs_logo.jpeg" alt="Graduation" class="bg-img"/>
+    </div>
+    <div class="right-panel">
+      <h1>LOGIN PAGE</h1>
+      <p class="subtitle">Sign in to manage your schedule</p>
+      <form method="POST" action="{{url_for('login')}}">
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+          <option value="">Select Role</option>
+          <option value="employee">Employee</option>
+          <option value="supervisor">Supervisor</option>
+          <option value="hr">HR</option>
+        </select>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required />
+
+        <button type="submit">Login</button>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <center>
+        <h3>New to work?</h3>
+        <a href="{{url_for('create')}}">create account</a>
+        <a href="{{url_for('forgot_reset')}}">forgot password ?</a>
+        </center>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+

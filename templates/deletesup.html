@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Supervisor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      width: 350px;
+    }
+
+    form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: #5563DE;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      background: #5563DE;
+      color: white;
+      border: none;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #3948C9;
+    }
+
+    p.success { color: green; }
+    p.danger { color: red; }
+  </style>
+</head>
+<body>
+  <form method="POST" action="{{ url_for('deletesup') }}">
+    <h2>Delete Supervisor</h2>
+
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter Name" required />
+
+    <label for="empid">Emp Code</label>
+    <input type="text" id="empid" name="empid" placeholder="6 digit ID" required />
+
+    <label for="designation">Role</label>
+    <select id="designation" name="designation" required>
+      <option value="">Select Role</option>
+      <option value="Tow Truck">Tow Truck</option>
+      <option value="Fork Lift (H/M)">Fork Lift (H/M)</option>
+      <option value="Img">Img</option>
+      <option value="Airbag">Airbag</option>
+      <option value="Audio">Audio</option>
+    </select>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <button type="submit">Delete Supervisor</button>
+  </form>
+</body>
+</html>

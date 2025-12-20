@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formal Leave Letter</title>
+<style>
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .letter-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 40px;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        line-height: 1.6;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
+    .from-block, .date-block {
+        font-size: 16px;
+    }
+
+    .from-block p, .date-block p {
+        margin: 2px 0;
+    }
+
+    .recipient {
+        margin-bottom: 20px;
+    }
+
+    .recipient p {
+        margin: 2px 0;
+    }
+
+    .subject {
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-decoration: underline;
+    }
+
+    .body p {
+        margin-bottom: 15px;
+    }
+
+    .body strong {
+        font-weight: bold;
+    }
+
+    .leave-dates {
+        margin: 15px 0;
+        font-size: 16px;
+    }
+
+    .closing {
+        margin-top: 50px;
+        text-align: left;
+    }
+
+    .closing p {
+        margin: 5px 0;
+    }
+</style>
+</head>
+<body>
+<div class="letter-container">
+
+    <!-- Header: From + Date -->
+    <div class="header">
+        <div class="from-block">
+            <p><strong>From:</strong></p>
+            <p>{{ emp.name }}</p>
+            <p>Employee Code: {{ emp.empcode }}</p>
+            <p>TVS supply chain solutions</p>
+        </div>
+    </div>
+    <!-- Recipient -->
+    <div class="recipient">
+        <p><strong>To,</strong></p>
+        <p>{{ emp.assup }}</p>
+        <p>Supervisor</p>
+        <p>TVS supply chain solutions</p>
+    </div>
+
+    <!-- Subject -->
+    <div class="subject">
+        <p>Subject: Request for Leave</p>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+        <p>Dear {{ emp.assup }},</p>
+
+        <p>I would like to request leave from <strong>{{ emp.from }}</strong> to <strong>{{ emp.to }}</strong> due to <strong>{{ emp.reason }}</strong>. I kindly request your approval for the same.</p>
+
+        <p>I assure you that I will complete any pending work before my leave and ensure smooth workflow in my absence.</p>
+
+        <p>Thank you for your consideration.</p>
+    </div>
+
+    <!-- Closing / Signature -->
+    <div class="closing">
+        <p>Sincerely,</p>
+        <p>{{ emp.name }}</p>
+        <p>Employee</p>
+    </div>
+
+</div>
+</body>
+</html>

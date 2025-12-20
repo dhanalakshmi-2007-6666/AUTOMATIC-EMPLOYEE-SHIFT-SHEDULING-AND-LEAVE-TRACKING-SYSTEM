@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Employee</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #f6d365, #fda085);
+    }
+
+    form {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #f76c6c;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      background: #f76c6c;
+      color: white;
+      border: none;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #d94f4f;
+    }
+
+    p.success {
+      color: green;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    p.danger {
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <form method="POST" action="{{ url_for('deleteemp') }}">
+    <h2>Delete Employee</h2>
+
+    <label>Name:</label>
+    <input type="text" name="name" placeholder="Enter employee name" required>
+
+    <label>Employee ID:</label>
+    <input type="text" name="empid" placeholder="Enter employee ID" required>
+
+    <label>Role:</label>
+    <input type="text" name="designation" placeholder="Enter role" required>
+
+    <label>Supervisor:</label>
+    <input type="text" name="supervisor" placeholder="Enter supervisor name" required>
+
+    <button type="submit">Delete Employee</button>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </form>
+</body>
+</html>

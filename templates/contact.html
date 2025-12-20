@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Example Company</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+/* Contact Section (same style as About Section) */
+.about-section {
+  position: relative;
+  height: 100vh;
+  background:
+    linear-gradient(rgba(63, 35, 100, 0.6), rgba(90, 47, 100, 0.7)),
+    url('images/contact-bg.jpeg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.overlay {
+  padding: 0 20px;
+}
+
+.content h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+/* Contact Info Boxes */
+.icon-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.icon-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.icon-box:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.icon-box i {
+  font-size: 3rem;
+  color: #ffcc00;
+  margin-bottom: 15px;
+}
+
+.icon-box h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.icon-box p {
+  font-size: 0.95rem;
+  color: #eee;
+  line-height: 1.5;
+}
+
+/* Footer */
+.foot {
+  background-color: #3f2364;
+  text-align: center;
+  padding: 30px 10px;
+}
+
+.foot p {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.social-icons a {
+  color: #ffcc00;
+  font-size: 1.8rem;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ffffff;
+  transform: scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content h1 {
+    font-size: 2.5rem;
+  }
+
+  .content p {
+    font-size: 1rem;
+  }
+
+  .social-icons a {
+    font-size: 1.5rem;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <section class="about-section">
+    <div class="overlay">
+      <div class="content">
+        <h1>Contact Us</h1>
+        <p>We're here to help! Reach out to our HR, Supervisor, or Team Members directly for any assistance.</p>
+
+        <div class="icon-row">
+          <!-- HR Contact -->
+          <div class="icon-box">
+            <i class="fas fa-user-tie"></i>
+            <h3>HR Department</h3>
+            <p>Email: hr@example.com<br>Phone: +91 9552345678</p>
+          </div>
+
+          <!-- Supervisor Contact -->
+          <div class="icon-box">
+            <i class="fas fa-user-check"></i>
+            <h3>Supervisor</h3>
+            <p>Email: supervisor@example.com<br>Phone: +91  9873456789</p>
+          </div>
+
+          <!-- Team Member Contact -->
+          <div class="icon-box">
+            <i class="fas fa-users"></i>
+            <h3>Help Line</h3>
+            <p>Email: Helpline
+                @example.com<br>Phone: +91 8764567890</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>© 2025 Yathra Groups Ltd. All Rights Reserved.</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+</body>
+</html>

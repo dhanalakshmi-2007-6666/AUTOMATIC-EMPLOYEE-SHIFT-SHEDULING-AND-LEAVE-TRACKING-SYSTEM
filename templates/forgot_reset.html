@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Reset Password</title>
+<style>
+body {
+  margin:0; padding:0; font-family:'Poppins', sans-serif;
+  background:linear-gradient(135deg,#89f7fe,#66a6ff);
+  height:100vh; display:flex; justify-content:center; align-items:center;
+}
+.container {
+  background:#fff; width:400px; padding:40px; border-radius:15px;
+  box-shadow:0 0 20px rgba(0,0,0,0.1); text-align:center;
+}
+h1 { color:#333; margin-bottom:30px; font-size:24px; }
+input {
+  width:100%; padding:10px; border:1px solid #ccc; border-radius:8px;
+  margin-bottom:20px; outline:none; font-size:14px;
+}
+input:focus { border-color:#66a6ff; box-shadow:0 0 5px rgba(102,166,255,0.5); }
+button {
+  background:#66a6ff; color:#fff; border:none; padding:12px 20px;
+  border-radius:8px; font-size:16px; cursor:pointer; transition:0.3s;
+}
+button:hover { background:#568dff; }
+p { color:red; font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Reset Password</h1>
+
+  {% if message %}
+  <p>{{ message }}</p>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('forgot_reset') }}">
+    <!-- Email Input -->
+    <input type="email" name="email" placeholder="Registered Email"
+           value="{{ email }}" required {% if show_otp_fields %}readonly{% endif %}/>
+
+    <!-- OTP + New Password fields only after sending OTP -->
+    {% if show_otp_fields %}
+      <input type="text" name="otp" placeholder="Enter OTP" required/>
+      <input type="password" name="password" placeholder="New Password" required/>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required/>
+    {% endif %}
+
+    <button type="submit">
+      {% if show_otp_fields %}Reset Password{% else %}Send OTP{% endif %}
+    </button>
+  </form>
+</div>
+</body>
+</html>

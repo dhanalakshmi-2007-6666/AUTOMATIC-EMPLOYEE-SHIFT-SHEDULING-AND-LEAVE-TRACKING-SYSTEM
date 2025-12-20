@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Directory</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ffda79;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 85%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .no-data {
+            margin-top: 40px;
+            font-size: 18px;
+            color: #ffcccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Employee Directory</h1>
+
+    {% if employees and employees|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Code</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Gender</th>
+                <th>Date of Joining</th>
+                <th>Blood Group</th>
+                <th>Supervisor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in employees %}
+            <tr>
+                <td>{{ e['empid'] }}</td>
+                <td>{{ e['emp_name'] }}</td>
+                <td>{{ e['role'] }}</td>
+                <td>{{ e['gender'] }}</td>
+                <td>{{ e['doj'] }}</td>
+                <td>{{ e['bldgrp'] }}</td>
+                <td>{{ e['supervisor_name'] if e['supervisor_name'] else 'Not Assigned' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="no-data">No employees found.</div>
+    {% endif %}
+</body>
+</html>

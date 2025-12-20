@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .employee-card {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .employee-card h2 {
+      margin-top: 0;
+      color: #333;
+      text-align: center;
+    }
+
+    .employee-details {
+      margin-top: 20px;
+    }
+
+    .employee-details div {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .employee-details div:last-child {
+      border-bottom: none;
+    }
+
+    .employee-details span {
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="employee-card">
+    <h2>Employee Details</h2>
+    <div class="employee-details">
+      <div><span>Name:</span>{{emp.name}}</div>
+      <div><span>Emp Code:</span>{{emp.empcode}}</div>
+      <div><span>Role:</span>{{emp.role}}</div>
+      <div><span>Contact Number:</span> {{emp.mobile}}</div>
+      <div><span>Email:</span>{{emp.email}}</div>
+      <div><span>Gender:</span>{{emp.gender}}</div>
+      <div><span>Date Of Joining</span>{{emp.doj}}</div>
+      <div><span>Blood Group</span>{{emp.bldgrp}}</div>
+      <div><span>Assined Supervisor</span>{{emp.assup}}</div>
+    </div>
+  </div>
+
+</body>
+</html>

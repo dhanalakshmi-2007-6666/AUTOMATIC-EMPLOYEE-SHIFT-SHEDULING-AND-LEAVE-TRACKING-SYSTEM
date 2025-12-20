@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Account | Employee Management</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .success {
+            color: green;
+            font-weight: bold;
+        }
+        .danger {
+            color: red;
+            font-weight: bold;
+        }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <img src="/static/images/TVS6.webp" alt="Background" class="bg-img" />
+    </div>
+
+    <div class="right-panel">
+      <h2>Create Account</h2>
+      <p class="subtitle">Register to manage your shifts and leave</p>
+      
+      <form method="POST" action="{{ url_for('create') }}" onsubmit="return validatePasswords()">
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+          <option value="">Select Role</option>
+          <option value="employee">Employee</option>
+          <option value="supervisor">Supervisor</option>
+          <option value="hr">HR</option>
+        </select>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="NAME" />
+        <label for="text">Emp Code</label>
+        <input type="text" id="empid" name="empid" placeholder="6 digit id"/>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        <lable for="number">Mobile Number</lable>
+        <input type="number" id="number" name="number" placeholder="+91 " required/>
+        <label for="password">New Password</label>
+        <input type="password" id="password" name="password" placeholder="Create password" required minlength="6"/>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required minlength="6"/>
+
+        <button type="submit">Create Account</button>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <center>
+        <h3>account created</h3>
+        <a href="{{url_for('index')}}">back to Login page</a>
+        </center>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

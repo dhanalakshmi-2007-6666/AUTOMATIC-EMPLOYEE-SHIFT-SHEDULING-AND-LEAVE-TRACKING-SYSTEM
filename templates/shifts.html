@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shift Schedule</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(to right, #d9afd9, #97d9e1);
+      text-align: center;
+      padding: 40px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 30px auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    th {
+      background-color: #6495ed;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Current Supervisor Shift Schedule</h2>
+
+  {% if shifts and shifts|length > 0 %}
+  <table>
+    <tr>
+      <th>Supervisor ID</th>
+      <th>Name</th>
+      <th>Shift</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Week Start</th>
+    </tr>
+    {% for s in shifts %}
+    <tr>
+      <td>{{ s.supervisor_empcode }}</td>
+      <td>{{ s.name or 'N/A' }}</td>
+      <td>{{ s.shift_name }}</td>
+      <td>{{ s.start_time }}</td>
+      <td>{{ s.end_time }}</td>
+      <td>{{ s.week_start }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>No shift data found.</p>
+  {% endif %}
+
+  <a href="{{ url_for('rotate_shifts_now') }}" class="btn">Rotate Shifts Now</a>
+  <p>Auto rotation happens every 7 days.</p>
+</body>
+</html>

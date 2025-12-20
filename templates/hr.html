@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="/static/style1.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard</title>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="logo">HR System</div>
+            <nav class="nav-menu">
+                <a href="hr.html" class="nav-item active">🏠 Dashboard</a>
+                <a href="{{url_for('view_shifts')}}" class="nav-item">🗓 Shift Schedule</a>
+                <a href="{{url_for('view_employees')}}" class="nav-item">Employees</a>
+                <a href="{{ url_for('addemp') }}" class="nav-item">+ Add Employee</a>
+                <a href="{{url_for('deleteemp')}}" class="nav-item">- Delete Employee</a>
+                <a href="{{url_for('addsup')}}" class="nav-item">+ Add Supervisor</a>
+                <a href="{{url_for('deletesup')}}" class="nav-item">-Delete Supervisor</a>
+                <div class="nav-separator"></div>
+                <a href="{{url_for('contact')}}" class="nav-item">📞 Contact HR</a>
+                <a href="{{url_for('about')}}" class="nav-item">ℹ About System</a>
+                <a href="{{ url_for('back') }}" class="nav-item">Logout</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>HR Management Dashboard</h2>
+                <div class="user-info">Welcome, {{name}}</div>
+            </header>
+            
+            <section class="content-section">
+                <h3>Quick Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card bg-blue">
+                        <h4>Total Employees</h4>
+                        <p>{{total}}</p>
+                    </div>
+                    <div class="metric-card bg-green">
+                        <h4>Pending Leaves</h4>
+                        <p>12</p>
+                    </div>
+                    <div class="metric-card bg-red">
+                        <h4>Open Positions</h4>
+                        <p>5</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3>All Supervisors & Employees Details</h3>
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Supervisor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1001</td><td>name</td><td>Supervisor</td><td>email<td>No</td><td>Active</td></tr>
+                            <tr><td>1002</td><td>name</td><td>Supervisor</td><td>email</td><td>No</td><td>Active</td></tr>
+                            <tr><td>2050</td><td>name</td><td>Employee</td><td>email</td><td>name</td><td>Active</td></tr>
+                            <tr><td>2051</td><td>name</td><td>Employee</td><td>email</td><td>name</td><td>Active</td></tr>
+                            <tr><td>2052</td><td>name</td><td>Employee</td><td>email</td><td>name</td><td>Active</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
